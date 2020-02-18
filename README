@@ -1,0 +1,27 @@
+Author: Danny Holstein
+email: dgholstein@gmail.com
+
+This package includes the Arduino code (Due and Mega 2560 automatically recognized), the C code, LabView and Excel VBA that allow the Arduino to act as a DAQ device.
+
+There is no difference between the Windows and Linux version of this library, the VIs are identical, the DLLs compiled from the same source.  The LabView user may choose to use either compile his own dynamic library, or select the pre-compiled versions.
+
+Prerequisites:
+    PC and Arduino (Due and Mega 2560)
+Optional: (SDKs, headers and libraries)
+	LabView 7.1+
+	Excel VBA
+Notes:
+	Version 0.01
+		Original. Tested on Linux and Windows 10
+		Includes communications with RS-485 controlled GatesAir Power Amplifier
+
+Make (Linux):
+	Edit Makefile.unix, make sure the library paths are correct.
+	Build with "make -f Makefile.unix"
+	
+Make (Windows):
+	Edit Makefile.mak, make sure the library paths for LabView and optional functions are correct.
+	Build with "nmake -f Makefile.mak"
+
+64-bit:
+	You're on your own -- I only have worked with 32 bit versions of LabView.  Contact me if you have difficulty, I'll help where I can.

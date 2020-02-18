@@ -1,0 +1,58 @@
+##############################################################################
+#
+#                     Makefile for crc.so
+#
+##############################################################################
+
+# This variable contains the flags passed to cc.
+
+CC = gcc
+CFLAGS = -m32 -fPIC -Di686 -g
+
+INCLUDES = 
+LIBS = 
+OBJ = o
+SUFFIX = so
+DLLFLAGS = -shared -m32
+.SUFFIXES:
+.SUFFIXES: .c .o .so
+
+OBJECTS = crc.$(OBJ)
+
+
+.c:
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIBS)
+
+.c.o: 
+	$(CC) $(INCLUDES) -c $(CFLAGS) $<
+
+.c.obj: 
+	$(CC) $(INCLUDES) -c $(CFLAGS) $<
+
+.o.so:
+	$(CC) $(DLLFLAGS) -o $@ $*.o $(LIBS)
+
+.obj.dll:
+	$(LINKER) $(DLLFLAGS) $*.obj $(LIBS)
+
+all:    crc.$(SUFFIX)
+
+crc.so:    $(OBJECTS)
+	$(CC) $(DLLFLAGS) -o $@ $(OBJECTS) $(LIBS)
+
+crc.dll:    $(OBJECTS)
+	$(LINKER) $(DLLFLAGS) $(OBJECTS) $(LIBS)
+
+clean:
+	 rm -f\
+	 crc.$(SUFFIX) *.$(OBJ)
+
+dist:
+	 tar cvfz crc.tgz *.c *.h Makefile *.llb
+
+test:    crc.$(SUFFIX)
+	 $(CC) test.c $(CFLAGS) -o test crc.$(SUFFIX)
+
+test_comm:    comm.$(SUFFIX)
+	 $(CC) test.c $(CFLAGS) -o test comm.$(SUFFIX)
+
